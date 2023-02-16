@@ -1,6 +1,7 @@
 # jable爬虫 jable-spider
 jable.tv(fs1.app)爬虫, 包含所有番号
 
+![](https://github.com/xiaoWangSec/jable-spider/blob/master/img.jpg)
 
 ## 使用方法
 
