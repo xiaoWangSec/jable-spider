@@ -1,12 +1,33 @@
 <meta charset="utf8" />
 <meta name="referrer" content="no-referrer" />
+<title>AVdb</title>
 <html>
+<style>
+    img {
+        height: 30%;
+        margin: 10px;
+    }
 
+    html {
+        color-scheme: normal;
+    }
+
+    h1 {
+        display: inline;
+    }
+</style>
 
 <body>
-    <h1 id="totle">当前记录数: </h1>
+    <p>
+    <h1>
+        当前片数:
+        <h1 id="totle"></h1>
+    </h1>
+    </p>
+    <p>
+    <h1>每次访问随机十部&nbsp;&nbsp;<button id="fresh" class="button">点我获取更多</button></h1>
+    </p>
     <p id="content"></p>
-
 </body>
 <script src='./dist/sql-wasm.js'></script>
 <script src='./main.js'></script>
