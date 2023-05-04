@@ -20,9 +20,13 @@ jable.tv(fs1.app)爬虫, 包含所有番号
 
 ## 说明
 
-直接对jable.tv进行请求会遇到cloudflare五秒盾, 可以用[https://github.com/VeNoMouS/cloudscraper](https://github.com/VeNoMouS/cloudscraper)绕过
+<s>直接对jable.tv进行请求会遇到cloudflare五秒盾, 可以用[https://github.com/VeNoMouS/cloudscraper](https://github.com/VeNoMouS/cloudscraper)绕过</s>
 
-但是也可以换个思路, 对fs1.app进行请求, 实测不会遇到cloudflare五秒盾
+<s>但是也可以换个思路, 对fs1.app进行请求, 实测不会遇到cloudflare五秒盾</s>
+
+站点改动, jable.tv用了Cloudflare version 2 Captcha challenge, cloudscraper免费版无法绕过
+
+fs1.app也不能直接爬了, 需要使用[https://github.com/VeNoMouS/cloudscraper](https://github.com/VeNoMouS/cloudscraper)绕过
 
 ## TODO
 
