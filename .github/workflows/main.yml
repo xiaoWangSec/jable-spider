@@ -2,7 +2,7 @@ name: Push
 
 on:
   schedule:
-    - cron: '22 15 * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
 
