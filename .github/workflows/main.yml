@@ -21,8 +21,14 @@ jobs:
     - name: 'Run Python'
       run: python3 ./main.py
       
-    - name: 'Show Diff'
-      run: git add .
-    
-    - name: action-push
-      uses: ludeeus/action-push@0.0.1
+    - name: commit
+      run: |
+        git config --global user.email jable@jable.tv
+        git config --global user.name GithubActions
+        git add .
+        git commit -m "update" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.TOKEN }}
