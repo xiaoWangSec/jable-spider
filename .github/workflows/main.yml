@@ -27,5 +27,11 @@ jobs:
         git config --global user.name GithubActions
         git add .
         git commit -m "update" -a
-        git push
+    - uses: GuillaumeFalourd/git-commit-push@v1.3
+      with:
+        target_branch: master
+        files: AV.db
+        remote_repository: https://github.com/xiaoWangSec/jable-spider/
+        access_token: ${{secrets.TOKEN}}
+        force: true
 
