@@ -9,15 +9,13 @@ jable.tv(fs1.app)爬虫, 包含所有番号
 * 或者直接Fork一份代码然后在Codespace中打开
 * 安装依赖`pip install -r requirements.txt`
 * 运行爬虫`python main.py`
-* 会自动更新最新番号至`AV.db`中
+* 会自动更新最新番号至`avdb_images`中
 * 你可以手动修改`for i in tqdm(range(1, 35), colour='green', desc='进度: '):`中的范围以实现修改爬取页面
 
 
 ## 数据库设计
 
-|  car   | title  | url  | img |
-|  ----  | ----  | ----  | ----  |
-| 车牌  | 标题 | 链接 | 封面图 |
+见sql文件
 
 
 ## 说明
@@ -32,4 +30,4 @@ fs1.app也不能直接爬了, 需要使用[https://github.com/VeNoMouS/cloudscra
 
 ## TODO
 
-* 把封面爬下来转base64存到另一张表
+<s>把封面爬下来转base64存到另一张表</s>

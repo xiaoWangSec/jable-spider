@@ -1,4 +1,6 @@
-bs4
+mysql-connector-python
+requests
+Pillow
 cloudscraper
+beautifulsoup4
 tqdm
-lxml
