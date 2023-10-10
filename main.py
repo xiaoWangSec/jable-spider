@@ -14,22 +14,26 @@ import cloudscraper
 
 
 class Scraper:
-    RETRY_TIMES = 5
+    RETRY_TIMES = 5  # 重试次数
 
     def __init__(self, db_config):
-        self.session = cloudscraper.create_scraper()
+        self.session = cloudscraper.create_scraper()  # 创建一个用于发送网络请求的会话
+        # 创建一个数据库连接池
         self.db_pool = mysql.connector.pooling.MySQLConnectionPool(
             pool_name="mypool", pool_size=10, **db_config)
-        self.existing_cars = set()
+        self.existing_cars = set()  # 创建一个集合，用于存储已存在的车牌信息
 
     def get_db_connection(self):
+        # 从连接池中获取一个数据库连接
         return self.db_pool.get_connection()
 
     def handle_request(self, url):
+        # 处理网络请求，如果请求失败，则重试，最多重试RETRY_TIMES次
         for _ in range(self.RETRY_TIMES):
             try:
                 return self.session.get(url, timeout=20).text
             except requests.exceptions.RequestException:
+                #休眠随机1~5秒
                 time.sleep(random.randint(1, 5))
             except Exception as e:
                 logging.error(f"Unexpected error: {e}")
@@ -39,6 +43,7 @@ class Scraper:
         return None
 
     def get_tags(self, soup):
+        # 解析HTML文档，获取影片标签信息
         tags_element = soup.select_one('h5.tags.h6-md')
         if tags_element is None:
             return ""
@@ -46,6 +51,7 @@ class Scraper:
         return ",".join(tags)
 
     def get_actor(self, soup):
+        # 解析HTML文档，获取演员信息
         spans = soup.select(
             'div.models > a.model > span.placeholder.rounded-circle, div.models > a.model > img.avatar.rounded-circle'
         )
@@ -54,6 +60,7 @@ class Scraper:
         return result
 
     def get_date(self, soup):
+        # 解析HTML文档，获取日期信息 有的影片没有日期填充1970年1月1日
         info_header = soup.find('div', {'class': 'info-header'})
         if info_header is None:
             return datetime.date(1970, 1, 1)
@@ -69,11 +76,13 @@ class Scraper:
         return date
 
     def update_record(self, csr, car, new_tags):
+        # 更新数据库中的记录
         csr.execute('UPDATE avdb_images SET tags = %s WHERE car = %s',
                     (new_tags, car))
         logging.info(f"Tags for car {car} have been updated.")
 
     def process_item(self, item, csr, conn):
+        # 处理每一项数据
         title = item.select_one('div.detail > h6.title > a').text
         match = re.match(r'([a-zA-Z0-9-_]+)', title)
         if match:
@@ -150,6 +159,7 @@ class Scraper:
                 break
 
     def process_content(self, content):
+        # 处理获取到的内容
         soup = BeautifulSoup(content, 'lxml')
         with self.get_db_connection() as conn:
             csr = conn.cursor()
@@ -158,17 +168,20 @@ class Scraper:
                 self.process_item(item, csr, conn)
 
     def scrape(self, url):
+        # 开始抓取数据
         time.sleep(random.randint(1, 5))
         content = self.handle_request(url)
         self.process_content(content)
 
 
 if __name__ == '__main__':
+    # 设置日志配置
     logging.basicConfig(filename='app.log',
                         filemode='w',
                         format='%(asctime)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
     db_config = {
+        # 数据库配置信息
         "user": "root",
         "password": "password",
         "host": "localhost",
