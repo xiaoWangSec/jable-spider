@@ -33,7 +33,7 @@ class Scraper:
             try:
                 return self.session.get(url, timeout=20).text
             except requests.exceptions.RequestException:
-                #休眠随机1~5秒
+                # 休眠随机1~5秒
                 time.sleep(random.randint(1, 5))
             except Exception as e:
                 logging.error(f"Unexpected error: {e}")
