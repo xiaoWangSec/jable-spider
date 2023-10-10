@@ -170,7 +170,7 @@ if __name__ == '__main__':
                         level=logging.INFO)
     db_config = {
         "user": "root",
-        "password": "huilin1314",
+        "password": "password",
         "host": "localhost",
         "database": "jable",
     }
