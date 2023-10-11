@@ -3,7 +3,7 @@ jable.tv(fs1.app)爬虫, 包含所有番号
 
 ![](https://github.com/xiaoWangSec/jable-spider/blob/master/img.jpg)
 
-## 使用方法
+## SQLite版使用方法
 
 * 确保网络环境是科学的 (Clash可以打开TUN模式, 或者连接VPN) 
 * 或者直接Fork一份代码然后在Codespace中打开
@@ -29,7 +29,3 @@ jable.tv(fs1.app)爬虫, 包含所有番号
 站点改动, jable.tv用了Cloudflare version 2 Captcha challenge, cloudscraper免费版无法绕过
 
 fs1.app也不能直接爬了, 需要使用[https://github.com/VeNoMouS/cloudscraper](https://github.com/VeNoMouS/cloudscraper)绕过
-
-## TODO
-
-* 把封面爬下来转base64存到另一张表
