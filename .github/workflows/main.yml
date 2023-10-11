@@ -32,7 +32,7 @@ jobs:
       with:
         target_branch: master
         files: AV.db
-        remote_repository: https://github.com/xiaoWangSec/jable-spider
+        remote_repository: https://github.com/xiaoWangSec/jable-spider/tree/sqlite
         access_token: ${{secrets.TOKEN}}
         force: true
 
