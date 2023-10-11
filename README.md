@@ -1,13 +1,15 @@
 # jable爬虫 jable-spider
 jable.tv(fs1.app)爬虫, 包含所有番号
 
-![](https://github.com/qileguai/jable-spider/blob/master/img.jpg)
+![](https://github.com/xiaoWangSec/jable-spider/blob/master/img.jpg)
 
-## 使用方法
+## MySQL版使用方法
 
 * 确保网络环境是科学的 (Clash可以打开TUN模式, 或者连接VPN) 
 * 或者直接Fork一份代码然后在Codespace中打开
 * 安装依赖`pip install -r requirements.txt`
+* 在你的MySQL数据库中导入`avdb_images.sql`
+* 修改第`183`行开始的MySQL数据库连接信息
 * 运行爬虫`python main.py`
 * 会自动更新最新番号至`avdb_images`中
 * 你可以手动修改`for i in tqdm(range(1, 35), colour='green', desc='进度: '):`中的范围以实现修改爬取页面
@@ -17,6 +19,7 @@ jable.tv(fs1.app)爬虫, 包含所有番号
 
 见sql文件
 
+## SQLite版请见`sqlite`分支
 
 ## 说明
 
@@ -30,4 +33,4 @@ fs1.app也不能直接爬了, 需要使用[https://github.com/VeNoMouS/cloudscra
 
 ## TODO
 
-<s>把封面爬下来转base64存到另一张表</s>
+<s>把封面爬下来转base64存到另一张表</s> 感谢@qileguai提交代码
