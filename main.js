@@ -7,7 +7,7 @@ config = {
 }
 initSqlJs(config).then(function (SQL) {
 	const xhr = new XMLHttpRequest();
-	xhr.open('GET', 'https://raw.githubusercontent.com/xiaoWangSec/jable-spider/master/AV.db', true);
+	xhr.open('GET', 'https://raw.githubusercontent.com/xiaoWangSec/jable-spider/sqlite/AV.db', true);
 	xhr.responseType = 'arraybuffer';
 
 	xhr.onload = e => {
