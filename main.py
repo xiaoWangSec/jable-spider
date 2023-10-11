@@ -83,12 +83,16 @@ class Scraper:
 
     def process_item(self, item, csr, conn):
         # 处理每一项数据
-        title = item.select_one('div.detail > h6.title > a').text
-        match = re.match(r'([a-zA-Z0-9-_]+)', title)
-        if match:
-            car = match.group(1)
-        else:
-            logging.error("No car matched")
+        try:
+            title = item.select_one('div.detail > h6.title > a').text
+            match = re.search(r'([a-zA-Z0-9-_]+)', title)
+            if match:
+                car = match.group(1)
+            else:
+                car = title.split()[0]
+        except Exception as e:
+            logging.error(f"Error processing car: {e}")
+            car = title  # 如果无法获取car的值，就将完整的标题返回为car
 
         if car in self.existing_cars:
             logging.info(
