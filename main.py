@@ -5,7 +5,6 @@ import requests
 from PIL import Image
 import io
 import base64
-import re
 import logging
 from bs4 import BeautifulSoup
 from tqdm import tqdm
@@ -41,6 +40,14 @@ class Scraper:
         logging.warning(
             f"Unable to get {url} after {self.RETRY_TIMES} attempts.")
         return None
+
+    def get_car_from_url(self, url):
+        try:
+            car = url.split("/")[-2].upper()
+            return car
+        except Exception as e:
+            logging.error(f"Error processing car: {e}")
+            return ""
 
     def get_tags(self, soup):
         # 解析HTML文档，获取影片标签信息
@@ -83,20 +90,15 @@ class Scraper:
 
     def process_item(self, item, csr, conn):
         # 处理每一项数据
-        try:
-            title = item.select_one('div.detail > h6.title > a').text
-            match = re.search(r'([a-zA-Z0-9-_]+)', title)
-            if match:
-                car = match.group(1)
-            else:
-                car = title.split()[0]
-        except Exception as e:
-            logging.error(f"Error processing car: {e}")
-            car = title  # 如果无法获取car的值，就将完整的标题返回为car
+        title = item.select_one('div.detail > h6.title > a').text
+        details_url = item.select_one('div.detail > h6.title > a')['href']
+        details_contents = self.handle_request(details_url)
+        car = self.get_car_from_url(details_url)
 
-        if car in self.existing_cars:
+        if car is None or car in self.existing_cars:
             logging.info(
-                f"Car {car} already exists in cache, skipping this item.")
+                f"Car {car} already exists in cache or could not be processed, skipping this item."
+            )
             return
 
         csr.execute('SELECT tags FROM avdb_images WHERE car = %s', (car, ))
@@ -107,7 +109,7 @@ class Scraper:
                 f"Car {car} already exists in the database, checking if tags need to be updated."
             )
             self.existing_cars.add(car)
-            details_url = item.select_one('div.detail > h6.title > a')['href']
+
             details_contents = self.handle_request(details_url)
             if details_contents is not None:
                 soup2 = BeautifulSoup(details_contents, 'lxml')
