@@ -33,4 +33,4 @@ fs1.app也不能直接爬了, 需要使用[https://github.com/VeNoMouS/cloudscra
 
 ## TODO
 
-<s>把封面爬下来转base64存到另一张表</s> 感谢@qileguai提交代码
+<s>把封面爬下来转base64存到另一张表</s> 感谢@qileguai提交代码 https://github.com/xiaoWangSec/jable-spider/pull/2
